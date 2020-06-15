@@ -3,7 +3,7 @@
 const para = document.getElementById('poblacion');
 const contagios = document.getElementById('contagios');
 let count = 0;
-
+let counting = 0;
 // setup canvas
 
 const canvas = document.getElementById('bouncingBall');
@@ -76,7 +76,6 @@ Ball.prototype.update = function() {
 // define ball collision detection
 
 Ball.prototype.collisionDetect = function() {
-    count = 0;
   for(var j = 0; j < balls.length; j++) {
     if(!(this === balls[j])) {
       var dx = this.x - balls[j].x;
@@ -85,8 +84,8 @@ Ball.prototype.collisionDetect = function() {
 
       if (distance < this.size + balls[j].size && balls[j].exists) {
         balls[j].color = this.color = 'rgb(255,0,0)';
-        count ++;
-        contagios.textContent = 'Contagios : '+count;
+        counting ++;
+        contagios.textContent = 'Contagios : '+counting;
       }
     }
   }
