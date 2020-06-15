@@ -1,6 +1,7 @@
 // define variable for ball count paragraph
 
-const para = document.querySelector('p');
+const para = document.getElementById('poblacion');
+const contagios = document.getElementById('contagios');
 let count = 0;
 
 // setup canvas
@@ -75,6 +76,7 @@ Ball.prototype.update = function() {
 // define ball collision detection
 
 Ball.prototype.collisionDetect = function() {
+    count = 0;
   for(var j = 0; j < balls.length; j++) {
     if(!(this === balls[j])) {
       var dx = this.x - balls[j].x;
@@ -82,7 +84,9 @@ Ball.prototype.collisionDetect = function() {
       var distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < this.size + balls[j].size && balls[j].exists) {
-        balls[j].color = this.color = 'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')';
+        balls[j].color = this.color = 'rgb(255,0,0)';
+        count ++;
+        contagios.textContent = 'Contagios : '+count;
       }
     }
   }
@@ -93,7 +97,7 @@ Ball.prototype.collisionDetect = function() {
 function EvilCircle(x, y, exists) {
   Shape.call(this, x, y, 20, 20, exists);
 
-  this.color = 'white';
+  this.color = 'red';
   this.size = 10;
 }
 
@@ -161,7 +165,7 @@ EvilCircle.prototype.collisionDetect = function() {
       if (distance < this.size + balls[j].size) {
         balls[j].exists = false;
         count--;
-        para.textContent = 'Ball count: ' + count;
+        para.textContent = 'Población: ' + count;
       }
     }
   }
@@ -183,18 +187,18 @@ while(balls.length < 25) {
     random(-7,7),
     random(-7,7),
     true,
-    'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')',
+    'rgb(176,196,222)',
     size
   );
   balls.push(ball);
   count++;
-  para.textContent = 'Ball count: ' + count;
+  para.textContent = 'Población: ' + count;
 }
 
 // define loop that keeps drawing the scene constantly
 
-let evil = new EvilCircle(random(0,width), random(0,height), true);
-evil.setControls();
+//let evil = new EvilCircle(random(0,width), random(0,height), true);
+//evil.setControls();
 
 function loop() {
   ctx.fillStyle = 'rgb(255,250,250)';
@@ -208,9 +212,9 @@ function loop() {
     }
   }
 
-  evil.draw();
-  evil.checkBounds();
-  evil.collisionDetect();
+  //evil.draw();
+  //evil.checkBounds();
+  //evil.collisionDetect();
 
   requestAnimationFrame(loop);
 }
