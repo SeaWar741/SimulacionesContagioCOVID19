@@ -83,9 +83,13 @@ Ball.prototype.collisionDetect = function() {
       var distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < this.size + balls[j].size && balls[j].exists) {
-        balls[j].color = this.color = 'rgb(255,0,0)';
-        counting ++;
-        contagios.textContent = 'Contagios : '+counting;
+        if(balls[j].color != 'rgb(255,0,0)'){
+          balls[j].color = this.color = 'rgb(255,0,0)';
+          counting ++;
+          contagios.textContent = 'Contagios : '+counting;
+        }else{
+
+        }      
       }
     }
   }
