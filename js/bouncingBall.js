@@ -83,7 +83,7 @@ Ball.prototype.collisionDetect = function() {
       var distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < this.size + balls[j].size && balls[j].exists) {
-        balls[j].color = this.color = 'rgb(255,0,0)';
+        balls[j].color = this.color = 'red';
         counting ++;
         contagios.textContent = 'Contagios : '+counting;
       }
@@ -162,9 +162,25 @@ EvilCircle.prototype.collisionDetect = function() {
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < this.size + balls[j].size) {
-        balls[j].exists = false;
+        if (this.color == 'red') {
+          if(balls[j].color != 'red'){
+            counting++;
+            contagios.textContent = 'Contagios : ' + counting;
+            balls[j].color = 'red';
+            redBalls++;
+          }
+          
+        } else if (balls[j].color == 'red') {
+          if(this.color != 'red'){
+            this.color = 'red';
+            counting++;
+            contagios.textContent = 'Contagios : ' + counting;
+            redBalls++;
+          }
+        }
+        /* balls[j].exists = false;
         count--;
-        para.textContent = 'Población: ' + count;
+        para.textContent = 'Población: ' + count; */
       }
     }
   }
@@ -175,9 +191,25 @@ EvilCircle.prototype.collisionDetect = function() {
 // define array to store balls and populate it
 
 const balls = [];
+const BALL_COUNT = 10;
+const size = random(10, 20);
+let newBall = new Ball(
+  // ball position always drawn at least one ball width
+  // away from the adge of the canvas, to avoid drawing errors
+  random(0 + size, width - size),
+  random(0 + size, height - size),
+  random(-7, 7),
+  random(-7, 7),
+  true,
+  'red',
+  size
+);
+balls.push(newBall);
+count++;
 
-while(balls.length < 25) {
+while(balls.length < BALL_COUNT) {
   const size = random(10,20);
+  
   let ball = new Ball(
     // ball position always drawn at least one ball width
     // away from the adge of the canvas, to avoid drawing errors
@@ -210,7 +242,6 @@ function loop() {
       balls[i].collisionDetect();
     }
   }
-
   //evil.draw();
   //evil.checkBounds();
   //evil.collisionDetect();
@@ -220,4 +251,4 @@ function loop() {
 
 
 
-loop();
+var run = setInterval(loop(), 5);
