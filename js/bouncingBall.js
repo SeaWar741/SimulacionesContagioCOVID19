@@ -83,24 +83,13 @@ Ball.prototype.collisionDetect = function() {
       var distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < this.size + balls[j].size && balls[j].exists) {
-        if (this.color == 'red') {
-          if (balls[j].color != 'red') {
-            counting++;
-            contagios.textContent = 'Contagios : ' + counting;
-            balls[j].color = 'red';
-            redBalls++;
-          }
-        } else{
-          if (balls[j].color == 'red') {
-            this.color = 'red';
-            counting++;
-            contagios.textContent = 'Contagios : ' + counting;
-            redBalls++;
-          }
-        }
-        /* balls[j].color = this.color = 'red';
-        counting ++;
-        contagios.textContent = 'Contagios : '+counting; */
+        if(balls[j].color != 'rgb(255,0,0)'){
+          balls[j].color = this.color = 'rgb(255,0,0)';
+          counting ++;
+          contagios.textContent = 'Contagios : '+counting;
+        }else{
+
+        }      
       }
     }
   }
