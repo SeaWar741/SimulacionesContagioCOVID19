@@ -4,30 +4,28 @@
 
 const para = document.getElementById('poblacion');
 const contagios = document.getElementById('contagios');
-let count = 0;
-let counting = 0;
+var count = 0;
+var counting = 0;
 var timeCount = 0;
-var redBalls = 50;
+var redBalls = 1;
+var dataset = [];
 var blueBalls = 50;
-let labels = ['February', 'March', 'April', 'May', 'June', 'July'];
 var canvas = document.getElementById('bouncingBall');
 var ctx = canvas.getContext('2d');
 resizeCanvas();
 var ctx2 = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx2, {
+var chart2 = new Chart(ctx2, {
     // The type of chart we want to create
     type: 'line',
 
     // The data for our dataset
     data: {
-        //labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        labels: ['January'],
+        labels: [],
         datasets: [{
             label: 'My First dataset',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
-            //data: [0, 10, 5, 2, 20, 30, 45]
-            data: [50]
+            data: []
         }]
     },
 
@@ -36,6 +34,7 @@ var chart = new Chart(ctx2, {
 });
 var world = new World();
 var run = setInterval(world.update, 5);
+
 
 //setInterval(world.update, 5); // World should update every 5 ms
 
@@ -181,13 +180,15 @@ function Ball(color) {
         //update data
 
         //update color and data
-        if (this.color == 'rgb(176,196,222)'){
-            counting++;
-            contagios.textContent = 'Contagios : ' + counting;
+        if (this.color == 'red'){
+            if(ball.color != 'red'){
+                counting++;
+                contagios.textContent = 'Contagios : ' + counting;
+                ball.color = 'red';
+                redBalls++;
+            }
+        } else if(ball.color == "red"){
             this.color = 'red';
-            redBalls++;
-        } else if(ball.color == "rgb(176,196,222)"){
-            ball.color = 'red';
             counting++;
             contagios.textContent = 'Contagios : ' + counting;
             redBalls++;
@@ -218,7 +219,7 @@ function World() {
 
     // Create and place balls. Only add if they don't overlap any other
     for (var i = 0; i < BALL_COUNT; i++) {
-        var color = i % 2 === 0 ? 'red' : 'rgb(176,196,222)';
+        var color = i === 1 ? 'red' : 'rgb(176,196,222)';
         while (true) {
             var tmpBall = new Ball(color);
             if (!isOverlap(tmpBall)) {
@@ -255,7 +256,11 @@ function World() {
         balls.forEach(function (ball) {
             ball.draw();
         });
-        updateData(timeCount++);
+        timeCount++;
+        if (Math.floor(timeCount / 200) > count){
+            dataset.push(redBalls);
+            count++;
+        }
         checkSatus();
     };
 
@@ -278,25 +283,26 @@ function World() {
         }
     }
 
-    function updateData(counter){
-        /**
-         * Calculate data to create chart
-         */
-        var position = Math.floor(counter / 200);
-        //addData(chart,labels[position],)
-    }
-    function addData(chart, label, data) {
-        chart.data.labels.push(label);
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.push(data);
-        });
-        chart.update();
-    }
-
     function checkSatus (){
         if(redBalls == BALL_COUNT){
+            fillChart();
             clearInterval(run);
         }
     }
+}
+
+function fillChart(){
+    for (var i = 0; i < dataset.length; i++) {
+        console.log(dataset[i])
+        addData(chart2, "-", dataset[i]);
+    }
+}
+
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
 }
 
