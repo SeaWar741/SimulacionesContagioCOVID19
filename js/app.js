@@ -85,6 +85,8 @@ function Ball(color) {
 
         if(this.color=='grey'){
             ctx.font = "30px Arial";
+            ctx.globalCompositeOperation="destination-over"
+            ctx.fillText("☣️", this.x-27, this.y+5);
             ctx.fillText("Paciente 0", this.x+10, this.y+5);
         }
     };
