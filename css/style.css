@@ -2,3 +2,12 @@
     width: 100%;
     height: 400px;
 }
+#basic-info{
+    margin-top: 2rem;
+}
+#display-info{
+    height: 100%;
+}
+#simulation{
+    margin-top: 2rem;
+}

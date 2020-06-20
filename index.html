@@ -25,7 +25,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark primary-color">
 
       <!-- Navbar brand -->
-      <a class="navbar-brand" href="#">Escenarios COVID19 LOl</a>
+      <a class="navbar-brand" href="#">Escenarios COVID19</a>
 
       <!-- Collapse button -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -54,21 +54,51 @@
     </nav>
     <!--/.Navbar-->
 
-    <div class="container">
+    <div class="container" id="basic-info">
       <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <p id="poblacion">Población: 10</p>
-            <p id="contagios">Contagios: 0</p>
-          </div>
-          <div class="col-md-8">
-            <canvas id="myChart"></canvas>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+
+              <div class="container" id="display-info">
+                <div class="card">
+                  <div class="container">
+                    <p id="poblacion">Población: 10</p>
+                    <p id="contagios">Contagios: 0</p>
+                    
+                    <label for="customRange1">Habitantes</label>
+                    <input type="range" class="custom-range" id="customRange1">
+
+                    <label for="customRange1">Movimiento de la población</label>
+                    <input type="range" class="custom-range" id="customRange1">
+
+                    <label for="customRange1">Suceptibilidad al contagio</label>
+                    <input type="range" class="custom-range" id="customRange1">
+
+                    <label for="customRange1">Letalidad</label>
+                    <input type="range" class="custom-range" id="customRange1">
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          
+            <div class="col-md-8">
+              <div class="container">
+                <div class="card">
+                  <canvas id="myChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="simulation">
       <div class="card">
         <canvas id="bouncingBall"></canvas>
       </div>
