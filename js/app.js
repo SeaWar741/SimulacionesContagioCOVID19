@@ -2,7 +2,8 @@
  * Bouncing balls
  */
 
-const para = document.getElementById('poblacion');
+const population = document.getElementById('poblacion');
+population.innerHTML = "Población: 100";
 const contagios = document.getElementById('contagios');
 var count = 0;
 var counting = 0;
@@ -16,13 +17,19 @@ resizeCanvas();
 var ctx2 = document.getElementById('myChart').getContext('2d');
 var chart2 = new Chart(ctx2, {
     // The type of chart we want to create
-    type: 'line',
+    type: 'bar',
 
     // The data for our dataset
     data: {
         labels: [],
         datasets: [{
-            label: 'My First dataset',
+            label: 'Contagios',
+            backgroundColor: "transparent",
+            borderColor: 'rgb(81,133,255)',
+            type: 'line',
+            data: []
+        },{
+            label: 'Contagios acumulados',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: []
@@ -42,8 +49,6 @@ function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
-
-
 
 /**
  * Ball model
@@ -180,14 +185,14 @@ function Ball(color) {
         //update data
 
         //update color and data
-        if (this.color == 'red'){
+        if (this.color == 'red' || this.color == "grey"){
             if(ball.color != 'red'){
                 counting++;
                 contagios.textContent = 'Contagios : ' + counting;
                 ball.color = 'red';
                 redBalls++;
             }
-        } else if(ball.color == "red"){
+        } else if(ball.color == "red" || this.color == "grey"){
             this.color = 'red';
             counting++;
             contagios.textContent = 'Contagios : ' + counting;
@@ -219,7 +224,7 @@ function World() {
 
     // Create and place balls. Only add if they don't overlap any other
     for (var i = 0; i < BALL_COUNT; i++) {
-        var color = i === 1 ? 'red' : 'rgb(176,196,222)';
+        var color = i === 1 ? 'grey' : 'rgb(176,196,222)';
         while (true) {
             var tmpBall = new Ball(color);
             if (!isOverlap(tmpBall)) {
@@ -247,6 +252,7 @@ function World() {
      * All world updates through here
      */
     this.update = function () {
+        temp = count;
         resizeCanvas();
         ballCollisions();
         balls.forEach(function (ball) {
@@ -262,6 +268,11 @@ function World() {
             count++;
         }
         checkSatus();
+        /*
+        if(temp<count){
+            fillChart();
+        }
+        */
     };
 
     /**

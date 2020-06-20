@@ -1,13 +1,13 @@
 var ctx2 = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx2, {
+    var myBarChart = new Chart(ctx2, {
         // The type of chart we want to create
-        type: 'line',
+        type: 'bar',
 
         // The data for our dataset
         data: {
             labels: [],
             datasets: [{
-                label: 'My First dataset',
+                label: 'Contagios acumulados',
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
                 data: []
