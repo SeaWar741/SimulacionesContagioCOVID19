@@ -82,6 +82,11 @@ function Ball(color) {
         this.y += this.speedY;
         this.nextX = this.x;
         this.nextY = this.y;
+
+        if(this.color=='grey'){
+            ctx.font = "30px Arial";
+            ctx.fillText("Paciente 0", this.x+10, this.y+5);
+        }
     };
 
     /**
