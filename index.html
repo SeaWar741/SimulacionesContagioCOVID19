@@ -63,20 +63,29 @@
               <div class="container" id="display-info">
                 <div class="card">
                   <div class="container">
-                    <p id="poblacion">Población: 10</p>
-                    <p id="contagios">Contagios: 0</p>
+                    <p id="poblacion">Población: </p>
+
+                      <p id="NumPoblacion">100</p>
+
+                    <p id="contagios">Contagios: </p>
+
+                      <p id="NumContagios">100</p>
                     
-                    <label for="customRange1">Habitantes</label>
-                    <input type="range" class="custom-range" id="customRange1">
+                    <label for="customRange1">Habitantes: <p id="InitPopulation">100</p></label>
+                    <input type="range" class="custom-range" min="2" max="1000" step="2" id="Habitantes">
 
-                    <label for="customRange1">Movimiento de la población</label>
-                    <input type="range" class="custom-range" id="customRange1">
+                    <label for="customRange1">Velocidad inicial de la población: <p id="MovPopulation">1</p></label>
+                    <input type="range" class="custom-range" min="1" max="10" step="0.5" id="MoviPob">
 
-                    <label for="customRange1">Suceptibilidad al contagio</label>
-                    <input type="range" class="custom-range" id="customRange1">
+                    <label for="customRange1">Suceptibilidad al contagio: <p id="SuceptPopulation">0.5</p></label>
+                    <input type="range" class="custom-range" min="0.01" max="1" step="0.01"  id="Suceptibilidad">
 
-                    <label for="customRange1">Letalidad</label>
-                    <input type="range" class="custom-range" id="customRange1">
+                    <label for="customRange1">Letalidad: <p id="LetalPopulation">0.5</p></label>
+                    <input type="range" class="custom-range"  min="0.01" max="1" step="0.01" id="Letalidad">
+
+                    <div class="container text-center">
+                      <button type="button" class="btn btn-danger" onclick="simulate()">Simular</button>
+                    </div>
 
                   </div>
                 </div>
